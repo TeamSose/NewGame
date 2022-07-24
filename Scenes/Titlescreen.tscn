@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
@@ -7,17 +8,49 @@
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.33779
 height = 0.002
+=======
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="MeshLibrary" id=3]
+item/0/name = ""
+item/0/mesh = SubResource( 2 )
+item/0/mesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/0/shapes = [  ]
+item/0/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 15.9437, 1, 11.2019 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 3.55508, 0.5, 0.5 )
+
+[sub_resource type="CapsuleShape" id=4]
+>>>>>>> Stashed changes
 
 [node name="Spatial" type="Spatial"]
 
 [node name="GridMap" type="GridMap" parent="."]
+mesh_library = SubResource( 3 )
+cell_size = Vector3( 1, 1, 1 )
 data = {
-"cells": PoolIntArray(  )
+"cells": PoolIntArray( 65520, 0, 0, 65523, 0, 0, 65526, 0, 0, 65528, 0, 0, 65530, 0, 0, 65532, 0, 0, 131075, 0, 0, 131076, 0, 0, 1, 1, 0, 65519, 1, 0, 65522, 1, 0, 65525, 1, 0, 65529, 1, 0, 65531, 1, 0, 65532, 1, 0, 131075, 1, 0, 131076, 1, 0, 65518, 2, 0, 65522, 2, 0, 65525, 2, 0, 65529, 2, 0, 65530, 2, 0, 65531, 2, 0, 65532, 2, 0, 65517, 3, 0, 65524, 3, 0, 0, 4, 0, 65516, 4, 0, 65517, 4, 0, 65522, 4, 0, 65523, 4, 0, 65532, 4, 0, 65516, 5, 0, 65523, 5, 0, 65521, 6, 0, 65522, 6, 0, 65531, 6, 0, 65522, 7, 0, 65523, 7, 0, 65521, 8, 0, 65522, 8, 0, 65530, 8, 0, 65534, 8, 0, 65522, 9, 0, 65525, 9, 0, 65529, 9, 0, 65521, 10, 0, 65522, 10, 0, 65523, 10, 0, 65526, 10, 0, 65528, 10, 0, 65523, 11, 0, 65524, 11, 0, 65525, 11, 0, 65526, 11, 0, 65532, 11, 0, 65522, 12, 0, 65524, 13, 0, 65526, 13, 0, 65529, 13, 0, 0, 65527, 0, 1, 65527, 0, 2, 65527, 0, 3, 65527, 0, 4, 65527, 0, 5, 65527, 0, 6, 65527, 0, 7, 65527, 0, 0, 65528, 0, 1, 65528, 0, 2, 65528, 0, 3, 65528, 0, 4, 65528, 0, 5, 65528, 0, 6, 65528, 0, 7, 65528, 0, 65529, 65528, 0, 65530, 65528, 0, 65532, 65528, 0, 65533, 65528, 0, 65534, 65528, 0, 0, 65529, 0, 1, 65529, 0, 2, 65529, 0, 3, 65529, 0, 4, 65529, 0, 5, 65529, 0, 6, 65529, 0, 7, 65529, 0, 65527, 65529, 0, 65535, 65529, 0, 65537, 65529, 0, 65538, 65529, 0, 65539, 65529, 0, 65540, 65529, 0, 65541, 65529, 0, 65542, 65529, 0, 65543, 65529, 0, 0, 65530, 0, 1, 65530, 0, 2, 65530, 0, 3, 65530, 0, 4, 65530, 0, 5, 65530, 0, 6, 65530, 0, 7, 65530, 0, 65526, 65530, 0, 0, 65531, 0, 1, 65531, 0, 2, 65531, 0, 3, 65531, 0, 4, 65531, 0, 5, 65531, 0, 6, 65531, 0, 7, 65531, 0, 65526, 65531, 0, 65530, 65531, 0, 65531, 65531, 0, 65532, 65531, 0, 65533, 65531, 0, 65534, 65531, 0, 65535, 65531, 0, 0, 65532, 0, 1, 65532, 0, 2, 65532, 0, 3, 65532, 0, 4, 65532, 0, 5, 65532, 0, 6, 65532, 0, 7, 65532, 0, 65524, 65532, 0, 65525, 65532, 0, 65526, 65532, 0, 65527, 65532, 0, 65528, 65532, 0, 65529, 65532, 0, 65530, 65532, 0, 131075, 65532, 0, 131076, 65532, 0, 0, 65533, 0, 1, 65533, 0, 2, 65533, 0, 3, 65533, 0, 4, 65533, 0, 5, 65533, 0, 6, 65533, 0, 7, 65533, 0, 65523, 65533, 0, 65524, 65533, 0, 65525, 65533, 0, 65529, 65533, 0, 65531, 65533, 0, 131075, 65533, 0, 131076, 65533, 0, 0, 65534, 0, 1, 65534, 0, 2, 65534, 0, 3, 65534, 0, 4, 65534, 0, 5, 65534, 0, 6, 65534, 0, 7, 65534, 0, 65523, 65534, 0, 65524, 65534, 0, 65528, 65534, 0, 131075, 65534, 0, 131076, 65534, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 0, 3, 65535, 0, 4, 65535, 0, 5, 65535, 0, 6, 65535, 0, 7, 65535, 0, 65521, 65535, 0, 65522, 65535, 0, 65527, 65535, 0, 65528, 65535, 0, 65529, 65535, 0, 65530, 65535, 0, 65531, 65535, 0, 131075, 65535, 0, 131076, 65535, 0 )
 }
 __meta__ = {
-"_editor_clip_": 0
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
 }
 
+<<<<<<< Updated upstream
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0818415, 0, 0.0133436 )
 
@@ -34,3 +67,30 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00106192, 1.24712, 0.0182276
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0733176, 2.0391, 0.155714 )
 shape = SubResource( 2 )
+=======
+[node name="StaticBody" type="StaticBody" parent="GridMap"]
+
+[node name="CollisionShape" type="CollisionShape" parent="GridMap/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87477, 0, 0 )
+shape = SubResource( 5 )
+
+[node name="StaticBody2" type="StaticBody" parent="GridMap"]
+
+[node name="CollisionShape" type="CollisionShape" parent="GridMap/StaticBody2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5919, -6.5048 )
+shape = SubResource( 6 )
+
+[node name="KinematicBody" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.371, 8.069, -1.78 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0.693778, 0 )
+shape = SubResource( 4 )
+
+[node name="Camera" type="Camera" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 0.640646, 0.767837, 0, -0.767837, 0.640646, 0, 4.22, 2.333 )
+current = true
+
+[node name="Pivot" type="Position3D" parent="KinematicBody"]
+>>>>>>> Stashed changes
