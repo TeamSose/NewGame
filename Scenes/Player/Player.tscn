@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="Player" type="KinematicBody"]
+
+[node name="Spatial" type="Spatial" parent="."]
+
+[node name="Character" type="Spatial" parent="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="Spatial/Character"]
