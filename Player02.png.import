@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tilemapdungeon01.png-635e02fb10f9c09aa54d3ce1f2974bec.stex"
+path="res://.import/Player02.png-d2d4489e7ec03e623a2cdd326f396fa4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tilemapdungeon01.png"
-dest_files=[ "res://.import/Tilemapdungeon01.png-635e02fb10f9c09aa54d3ce1f2974bec.stex" ]
+source_file="res://Player02.png"
+dest_files=[ "res://.import/Player02.png-d2d4489e7ec03e623a2cdd326f396fa4.stex" ]
 
 [params]
 
