@@ -1,0 +1,69 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Effects/WallCollision.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=1]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 360 ), 0.0, 0.0, 0, 0, Vector2( 1, -355.091 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.695652, 0.850932 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0.78882, 0.78882, 1, 1, 0.489258, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.505682 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="Gradient" id=7]
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.98913, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+trail_divisor = 4
+trail_size_modifier = SubResource( 10 )
+trail_color_modifier = SubResource( 8 )
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+spread = 80.0
+flatness = 0.5
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle_curve = SubResource( 2 )
+scale = 5.0
+scale_random = 0.25
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
+
+[node name="Particles2D" type="Particles2D"]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 11 )
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

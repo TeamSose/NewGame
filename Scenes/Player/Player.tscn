@@ -5,10 +5,14 @@
 [sub_resource type="GDScript" id=2]
 script/source = "extends Area2D
 
-onready var ray = $RayCast2D
+const EXPLOSION = preload(\"res://Scenes/Effects/WallCollision.tscn\")
+
+#https://kidscancode.org/godot_recipes/2d/grid_movement/
+onready var ray = $CollisionDetection
+onready var wallDetection = $WallDetection
 onready var tween = $Tween
 
-export var speed = 3
+export var speed = 4
 
 var tile_size = 16
 var inputs = {\"right\": Vector2.RIGHT,
@@ -30,14 +34,25 @@ func _unhandled_input(event):
 func move(dir):
 	ray.cast_to = dir * tile_size
 	ray.force_raycast_update()
+	wallDetection.cast_to = dir * (tile_size * 2)
+	wallDetection.force_raycast_update()
+	if wallDetection.is_colliding() && !ray.is_colliding():
+		var x = EXPLOSION.instance()
+		get_parent().add_child(x)
+		x.position = global_position + dir * tile_size * 1.5
+		x.look_at(global_position)
+		x.boom()
 	if !ray.is_colliding():
 		#position += dir * tile_size
 		move_tween(dir)
+		
+		
 
 func move_tween(dir):
 	tween.interpolate_property(self, \"position\",
 		position, position + dir * tile_size,
-		1.0/speed, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+		#Change Tween.Trans_X for different movement style
+		1.0/speed, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 	tween.start()
 	
 "
@@ -58,6 +73,8 @@ shape = SubResource( 1 )
 self_modulate = Color( 1, 1, 1, 0.494118 )
 texture = ExtResource( 1 )
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="CollisionDetection" type="RayCast2D" parent="."]
+
+[node name="WallDetection" type="RayCast2D" parent="."]
 
 [node name="Tween" type="Tween" parent="."]
