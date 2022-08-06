@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Player02.png" type="Texture" id=1]
+[ext_resource path="res://Player101.png" type="Texture" id=1]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Area2D
