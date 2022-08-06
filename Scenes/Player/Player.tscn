@@ -52,7 +52,7 @@ func move_tween(dir):
 	tween.interpolate_property(self, \"position\",
 		position, position + dir * tile_size,
 		#Change Tween.Trans_X for different movement style
-		1.0/speed, Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
+		1.0/speed, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 	tween.start()
 	
 "
@@ -71,7 +71,6 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4.76837e-07, 4.76837e-07 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 
 [node name="CollisionDetection" type="RayCast2D" parent="."]
