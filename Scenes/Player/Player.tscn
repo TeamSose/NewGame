@@ -16,7 +16,7 @@ onready var tween = $Tween
 onready var MoveSound = $MoveSound
 onready var ExplosionSound = $ExplosionSound
 
-export var speed = 4
+export var speed = 5
 
 var save
 var tile_size = 16
