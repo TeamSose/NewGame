@@ -18,6 +18,7 @@ onready var ExplosionSound = $ExplosionSound
 
 export var speed = 4
 
+var save
 var tile_size = 16
 var inputs = {\"right\": Vector2.RIGHT,
 			\"left\": Vector2.LEFT,
@@ -48,12 +49,10 @@ func move(dir):
 		x.look_at(global_position)
 		x.boom()
 		ExplosionSound.play()
-	if !ray.is_colliding():
+	if !ray.is_colliding() || !ray.get_collider().get_class() == \"TileMap\":
 		#position += dir * tile_size
 		move_tween(dir)
 		MoveSound.play()
-	
-	
 
 func move_tween(dir):
 	tween.interpolate_property(self, \"position\",
