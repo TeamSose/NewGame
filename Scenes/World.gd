@@ -2,5 +2,5 @@ extends Node
 
 
 func _ready():
-	MusicController.play_music()
-
+	#MusicController.play_music()
+	pass
