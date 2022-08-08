@@ -556,3 +556,8 @@ position = Vector2( 136, 104 )
 
 [node name="MovableObject2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 136, 72 )
+
+[node name="MovableObject3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 136, 56 )
+
+[editable path="MovableObject3"]
