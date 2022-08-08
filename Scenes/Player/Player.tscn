@@ -41,13 +41,15 @@ func _process(delta):
 			boxInFront = true
 		else:
 			boxInFront = false
-
-func _unhandled_input(event):
-	if tween.is_active():
-		return
+	print(boxInFront)
 	for dir in inputs.keys():
 		if Input.is_action_just_pressed(dir):
 			check_move(inputs.get(dir))
+			
+func _unhandled_input(event):
+	if tween.is_active():
+		tween.seek(1)
+	
 
 func check_move(dir):
 	direction = dir
@@ -58,7 +60,8 @@ func check_move(dir):
 	ray.force_raycast_update()
 	
 	check_box()
-	if boxInFront:
+	if box != null:
+		print(\"Box\")
 		if !wallDetection.is_colliding():
 			move_Box(dir)
 	
@@ -77,15 +80,12 @@ func move_tween(dir):
 func move_Box(dir):
 	MoveSound.play()
 	if boxInFront:
-		
 		tween.interpolate_property(box, \"position\",
 			box.position, box.position + dir * tile_size,
 			#Change Tween.Trans_X for different movement style
 			1.0/speed, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 			
 		tween.start()
-	else:
-		return
 
 func check_crash():
 	wallDetection.cast_to = direction * (tile_size * 2)
@@ -109,21 +109,25 @@ func check_box():
 		else:
 			boxInFront = false
 
-
 func _on_Area2D_area_entered(area):
 	if area.is_in_group(\"Box\"):
 		box = area
 
 func _on_Area2D_area_exited(area):
 	if area.is_in_group(\"Box\"):
-		box = null
+		pass
+		#box = null
 
+func _on_Player_area_entered(area):
+	if area.is_in_group(\"Box\"):
+		box = area
 "
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.0
 
 [sub_resource type="RayShape2D" id=4]
+length = 15.0
 
 [node name="Player" type="Area2D"]
 script = SubResource( 2 )
@@ -158,5 +162,6 @@ volume_db = -16.605
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 4 )
 
+[connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
