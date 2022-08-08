@@ -41,14 +41,13 @@ func _process(delta):
 			boxInFront = true
 		else:
 			boxInFront = false
-	print(boxInFront)
 	for dir in inputs.keys():
 		if Input.is_action_just_pressed(dir):
 			check_move(inputs.get(dir))
 			
 func _unhandled_input(event):
 	if tween.is_active():
-		tween.seek(1)
+		pass
 	
 
 func check_move(dir):
@@ -65,7 +64,7 @@ func check_move(dir):
 		if !wallDetection.is_colliding():
 			move_Box(dir)
 	
-	if !ray.is_colliding() or boxInFront && !wallDetection.is_colliding():
+	if !ray.is_colliding():
 		#position += dir * tile_size
 		move_tween(dir)
 
@@ -80,10 +79,15 @@ func move_tween(dir):
 func move_Box(dir):
 	MoveSound.play()
 	if boxInFront:
+		tween.interpolate_property(self, \"position\",
+		position, position + dir * tile_size,
+		#Change Tween.Trans_X for different movement style
+		1.0/speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		
 		tween.interpolate_property(box, \"position\",
 			box.position, box.position + dir * tile_size,
 			#Change Tween.Trans_X for different movement style
-			1.0/speed, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
+			1.0/speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			
 		tween.start()
 
@@ -115,12 +119,7 @@ func _on_Area2D_area_entered(area):
 
 func _on_Area2D_area_exited(area):
 	if area.is_in_group(\"Box\"):
-		pass
-		#box = null
-
-func _on_Player_area_entered(area):
-	if area.is_in_group(\"Box\"):
-		box = area
+		box = null
 "
 
 [sub_resource type="CircleShape2D" id=3]
@@ -162,6 +161,5 @@ volume_db = -16.605
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 4 )
 
-[connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
