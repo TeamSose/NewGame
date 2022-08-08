@@ -45,15 +45,15 @@ func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
 			direction = inputs.get(dir)
-			move()
+			check_move()
 
-func move():
+func check_move():
 	check_Rays()
 	if oneBlock == null:
 		move_tween(direction, 10, 5)
 	if check_dir(direction):
 		move_tween(direction, 0, 3)
-		oneBlock.move_Box(direction, 0, 3)
+		oneBlock.move(direction, 0, 3)
 	
 func move_tween(dir, tween_effect, speed):
 	tween.interpolate_property(self, "position",
