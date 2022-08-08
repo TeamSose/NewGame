@@ -490,8 +490,8 @@ uniform float scan_line_count : hint_range(0, 1080) = 50.0;
 vec2 uv_curve(vec2 uv) {
 	uv = (uv - 0.5) * 2.0;
 	
-	uv.x *= 1.0 + pow(abs(uv.y) / 6.0, 2.0);
-	uv.y *= 1.0 + pow(abs(uv.x) / 5.5, 2.0);
+	uv.x *= 1.0 + pow(abs(uv.y) / 5.0, 2.0);
+	uv.y *= 1.0 + pow(abs(uv.x) / 4.5, 2.0);
 	
 	//scalen:
 	//uv /= 1.2;
@@ -516,7 +516,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=107]
 shader = SubResource( 106 )
-shader_param/scan_line_count = 180.0
+shader_param/scan_line_count = 52.941
 
 [node name="World" type="Node"]
 script = ExtResource( 4 )

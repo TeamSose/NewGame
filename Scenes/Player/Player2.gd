@@ -4,6 +4,8 @@ const EXPLOSION = preload("res://Scenes/Effects/WallCollision.tscn")
 
 onready var rayCast = $RayCast2D
 onready var tween = $Tween
+onready var MoveSound = $MoveSound
+onready var ExplosionSound = $ExplosionSound
 
 var box = null
 var stop = false
@@ -15,10 +17,6 @@ var inputs = {"right": Vector2.RIGHT,
 			"left": Vector2.LEFT,
 			"up": Vector2.UP,
 			"down": Vector2.DOWN}
-func _ready():
-	pass
-	#position = position.snapped(Vector2.ONE * tile_size)
-	#position += Vector2.ONE * tile_size/2
 
 func check_dir(check_direction):
 	rayCast.cast_to = check_direction * tile_size
@@ -27,14 +25,24 @@ func check_dir(check_direction):
 	if collision != null:
 		if collision.is_in_group("Moveable"):
 			return collision.check_dir(check_direction)
-		elif collision.is_in_group("NotMovable"):
+		elif collision.is_in_group("NotMoveable"):
 			return false
+
+func check_explosion():
+	if twoBlock != null && oneBlock == null:
+		if twoBlock.is_in_group("NotMoveable") || twoBlock.check_dir(direction) == false:
+			var x = EXPLOSION.instance()
+			get_parent().add_child(x)
+			x.position = global_position + direction * tile_size * 1.5
+			x.look_at(global_position)
+			x.boom()
+			ExplosionSound.play()
 
 func check_Rays():
 	rayCast.cast_to = direction * tile_size
 	rayCast.force_raycast_update()
 	oneBlock = rayCast.get_collider()
-	
+
 	rayCast.cast_to = direction * tile_size * 2
 	rayCast.force_raycast_update()
 	twoBlock = rayCast.get_collider()
@@ -49,11 +57,16 @@ func _unhandled_input(event):
 
 func check_move():
 	check_Rays()
+	check_explosion()
 	if oneBlock == null:
+		MoveSound.play()
 		move_tween(direction, 10, 5)
 	if check_dir(direction):
+		MoveSound.play()
 		move_tween(direction, 0, 3)
 		oneBlock.move(direction, 0, 3)
+	else:
+		check_explosion()
 	
 func move_tween(dir, tween_effect, speed):
 	tween.interpolate_property(self, "position",

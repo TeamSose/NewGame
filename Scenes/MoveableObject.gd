@@ -13,7 +13,7 @@ func check_dir(direction):
 	if collision != null:
 		if collision.is_in_group("Moveable"):
 			return collision.check_dir(direction)
-		elif collision.is_in_group("NotMovable"):
+		elif collision.is_in_group("NotMoveable"):
 			return false
 	else:
 		return true
