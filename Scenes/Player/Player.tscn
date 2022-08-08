@@ -15,14 +15,14 @@ onready var wallDetection = $WallDetection
 onready var tween = $Tween
 onready var MoveSound = $MoveSound
 onready var ExplosionSound = $ExplosionSound
-onready var timer = $Timer
 onready var collision = $Area2D
 
 export var speed = 5
 
+var direction = Vector2(0,0)
+var Box_dir = Vector2(0,0)
 var boxInFront = false
 var box = null
-var seeked = false
 var tile_size = 16
 var inputs = {\"right\": Vector2.RIGHT,
 			\"left\": Vector2.LEFT,
@@ -33,49 +33,50 @@ func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size/2
 
+func _process(delta):
+	if box != null:
+		Box_dir = Vector2(box.position.x - self.position.x, box.position.y - self.position.y)
+		Box_dir = Box_dir.normalized()
+		if Box_dir == direction:
+			boxInFront = true
+		else:
+			boxInFront = false
+
 func _unhandled_input(event):
 	if tween.is_active():
 		return
 	for dir in inputs.keys():
 		if Input.is_action_just_pressed(dir):
-			move(inputs.get(dir))
+			check_move(inputs.get(dir))
 
-func move(dir):
+func check_move(dir):
+	direction = dir
+	check_crash()
+	
 	$Area2D/CollisionShape2D2.rotation_degrees = rad2deg(dir.angle()) - 90
 	ray.cast_to = dir * tile_size
 	ray.force_raycast_update()
-	wallDetection.cast_to = dir * (tile_size * 2)
-	wallDetection.force_raycast_update()
+	
+	check_box()
 	if boxInFront:
-		move_tween_with_Box(dir)
-		MoveSound.play()
-	if wallDetection.is_colliding() && !ray.is_colliding():
-		MoveSound.play()
-		var x = EXPLOSION.instance()
-		get_parent().add_child(x)
-		x.position = global_position + dir * tile_size * 1.5
-		x.look_at(global_position)
-		x.boom()
-		ExplosionSound.play()
-	if !ray.is_colliding() && !boxInFront:
+		if !wallDetection.is_colliding():
+			move_Box(dir)
+	
+	if !ray.is_colliding() or boxInFront && !wallDetection.is_colliding():
 		#position += dir * tile_size
 		move_tween(dir)
-		MoveSound.play()
 
 func move_tween(dir):
-	seeked = false
 	tween.interpolate_property(self, \"position\",
 		position, position + dir * tile_size,
 		#Change Tween.Trans_X for different movement style
 		1.0/speed, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 	tween.start()
+	MoveSound.play()
 	
-func move_tween_with_Box(dir):
+func move_Box(dir):
+	MoveSound.play()
 	if boxInFront:
-		tween.interpolate_property(self, \"position\",
-			position, position + dir * tile_size,
-			#Change Tween.Trans_X for different movement style
-			1.0/speed, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 		
 		tween.interpolate_property(box, \"position\",
 			box.position, box.position + dir * tile_size,
@@ -86,17 +87,37 @@ func move_tween_with_Box(dir):
 	else:
 		return
 
-func _on_Timer_timeout():
-	print(\"Timer stopped!\")
+func check_crash():
+	wallDetection.cast_to = direction * (tile_size * 2)
+	wallDetection.force_raycast_update()
+	if wallDetection.is_colliding() && !ray.is_colliding() && !boxInFront:
+		MoveSound.play()
+		var x = EXPLOSION.instance()
+		get_parent().add_child(x)
+		x.position = global_position + direction * tile_size * 1.5
+		x.look_at(global_position)
+		x.boom()
+		ExplosionSound.play()
+
+
+func check_box():
+	if box != null:
+		Box_dir = Vector2(box.position.x - self.position.x, box.position.y - self.position.y)
+		Box_dir = Box_dir.normalized()
+		if Box_dir == direction:
+			boxInFront = true
+		else:
+			boxInFront = false
+
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group(\"Box\"):
 		box = area
-		boxInFront = true
 
 func _on_Area2D_area_exited(area):
-	box = null
-	boxInFront = false
+	if area.is_in_group(\"Box\"):
+		box = null
+
 "
 
 [sub_resource type="CircleShape2D" id=3]
@@ -121,7 +142,6 @@ shape = SubResource( 3 )
 collide_with_areas = true
 
 [node name="WallDetection" type="RayCast2D" parent="."]
-collide_with_areas = true
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -133,15 +153,10 @@ volume_db = -10.487
 stream = ExtResource( 3 )
 volume_db = -16.605
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 4 )
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
