@@ -11,11 +11,14 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 8 )
 shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 8, 8 )
 cast_to = Vector2( 0, 16 )
 collide_with_areas = true
 

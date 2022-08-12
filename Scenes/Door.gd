@@ -18,8 +18,8 @@ func _on_Door_area_exited(area):
 	if area.is_in_group("DoorOpen"):
 		somethingIn = false
 
-func _on_Control_updateDoor(value):
-	if value:
+func update_Door(value):
+	if value == true:
 		openDoor()
 	else:
 		closeDoor()

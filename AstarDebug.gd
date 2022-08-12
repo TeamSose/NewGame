@@ -3,6 +3,7 @@ extends Control
 export(NodePath) onready var board = get_node(board)
 onready var astar = board.astar if board else null
 
+# warning-ignore:unused_argument
 func _physics_process(delta):
 	update()
 
