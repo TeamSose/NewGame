@@ -27,10 +27,10 @@ var tiles = {Vector2(4,1):["RB", [Vector2(1,0), Vector2(0,1)]],
 			Vector2(3,3):["M"]}
 
 onready var board = $"Underground Connections"
-onready var astarDebug = $Control2
 onready var player = $Player2
 onready var line = $Line2D
 
+var giversWithTile = []
 var usersWithTile = []
 var energyGivers = []
 var energyUsers = []
@@ -43,10 +43,10 @@ var start_point = Vector2.ZERO
 var end_point = Vector2.ZERO
 
 func _ready():
+	randomize()
 	energyGivers = get_tree().get_nodes_in_group("Giver")
 	energyUsers = get_tree().get_nodes_in_group("User")
 	#MusicController.play_music()
-	astarDebug.visible = !astarDebug.visible
 	array = board.get_used_cells()
 	for i in array:
 		if stopPoints.has(tiles.get(board.get_cell_autotile_coord(i.x,i.y))):
@@ -58,6 +58,7 @@ func _ready():
 		for k in array:
 			if j.position == board.map_to_world(k):
 				starts.append(k)
+				giversWithTile.append([j, k])
 	for l in energyUsers:
 		#print(l.position)
 		for m in array:
@@ -86,6 +87,21 @@ func _input(event):
 		for l in lines:
 			l.value = 100
 
+var hello = []
+func connect_Givers():
+	for giver in giversWithTile:
+		for connection in all_connections:
+			for c in connection:
+				if c[0] == giver[1]:
+					hello.append()
+					connect("energy", self, "button_changed")
+
+func button_changed(value):
+	if value:
+		pass
+
+		
+					
 func connect_Users():
 	for user in usersWithTile:
 		for connection in all_connections:

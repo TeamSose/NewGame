@@ -9,18 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "TileMap",
-"class": "AstarTileMap",
-"language": "GDScript",
-"path": "res://AstarTileMap.gd"
-}, {
 "base": "Area2D",
 "class": "moveableObject",
 "language": "GDScript",
 "path": "res://Scenes/MoveableObject.gd"
 } ]
 _global_script_class_icons={
-"AstarTileMap": "",
 "moveableObject": ""
 }
 
