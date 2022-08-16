@@ -5,8 +5,11 @@ onready var tween = $Tween
 onready var sprite = $Sprite
 export(NodePath) onready var tilemap = get_node("../Cables")
 export(NodePath) onready var world = get_node("..")
-export(NodePath) onready var inputTop = get_node(inputTop)
-export(NodePath) onready var inputBottom = get_node(inputBottom)
+export(NodePath) onready var button = get_node(button)
+export(NodePath) onready var button2 = get_node(button2)
+
+var inputTop = null
+var inputBottom = null
 
 var cables_copy = null
 var connection = null
@@ -72,19 +75,28 @@ func _physics_process(delta):
 	check_State()
 
 func check_State():
-	if inputTop.power == true && inputBottom.power == true:
-		updateState(3)
-		self.set_active(true)
-	else:
-		if inputTop.power == true && inputBottom.power != true:
-			updateState(1)
+	for c in button.connection:
+		if tilemap.map_to_world(c[1], false) == self.position:
+			inputTop = c[2]
+	
+	for d in button2.connection:
+		if tilemap.map_to_world(d[1], false) == self.position:
+			inputBottom = d[2]
+	
+	if inputTop != null && inputBottom != null:
+		if inputTop.power == true && inputBottom.power == true:
+			updateState(3)
 			self.set_active(true)
-		if inputTop.power != true && inputBottom.power == true:
-			updateState(2)
-			self.set_active(true)
-		if inputTop.power != true && inputBottom.power != true:
-			updateState(0)
-			self.set_active(false)
+		else:
+			if inputTop.power == true && inputBottom.power != true:
+				updateState(1)
+				self.set_active(true)
+			if inputTop.power != true && inputBottom.power == true:
+				updateState(2)
+				self.set_active(true)
+			if inputTop.power != true && inputBottom.power != true:
+				updateState(0)
+				self.set_active(false)
 	
 
 func updateState(state):

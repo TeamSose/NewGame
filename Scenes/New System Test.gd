@@ -67,8 +67,12 @@ func generate(connection):
 	lines = []
 	if connection != null:
 		for c in connection:
-			updateLine(c[0], c[1], lines)
+			c.append(updateLine(c[0], c[1], lines))
 		return lines
+
+func delete_connection(connection):
+	for c in connection:
+		connection.erase(c)
 
 func updateLine(start, end, list):
 	var test = bar.instance()
@@ -93,5 +97,5 @@ func updateLine(start, end, list):
 		test.rect_rotation = -90
 		test.rect_size.x = $Cables.map_to_world(start,false).y - $Cables.map_to_world(end,false).y
 	bars.add_child(test)
-	#add_child(test)
 	lines.append([test, false])
+	return test

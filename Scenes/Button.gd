@@ -16,10 +16,15 @@ func startup():
 	for t in tilemap.get_used_cells():
 		if tilemap.map_to_world(t) == self.position:
 			tile = t
-	#print(tile)
-	#print(Tilemap.get_cellv(tile))
-	connection = world.run_test(tile)
-	cables = world.generate(connection)
+			connection = world.run_test(tile)
+			cables = world.generate(connection)
+
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("mouse_right"):
+		world.tilemap.set_cellv(Vector2(8,3), 15)
+		world.delete_connection(connection)
+		connection = world.run_test(tile)
+		cables = world.generate(connection)
 
 func set_active(value):
 	if value != active:
