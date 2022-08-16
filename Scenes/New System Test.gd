@@ -38,7 +38,7 @@ func run_test(start):
 	temp = [start]
 	result = []
 	test(start, start, surrounding_tiles)
-	#print(surrounding_tiles)
+	print(result)
 	#all_connections.append(result)
 	return result
 	#for i in all_connections:

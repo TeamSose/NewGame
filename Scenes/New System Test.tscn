@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://PipeTileMap (1).png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Button.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/MoveableObject.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/OR-Gate.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Background.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/Moving Tile Test.tscn" type="PackedScene" id=10]
 
 [sub_resource type="TileSet" id=1]
 0/name = "PipeTileMap (1).png 0"
@@ -283,7 +284,7 @@ position = Vector2( 64, 144 )
 position = Vector2( 64, 208 )
 
 [node name="MovableObject" parent="." instance=ExtResource( 7 )]
-position = Vector2( 64, 192 )
+position = Vector2( 64, 80 )
 
 [node name="Player2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 128, 16 )
@@ -297,3 +298,6 @@ button2 = NodePath("../Button2")
 position = Vector2( 128, 176 )
 inputTop = NodePath("../Button3")
 inputBottom = NodePath("../Button4")
+
+[node name="MovingTile" parent="." instance=ExtResource( 10 )]
+position = Vector2( 128, 32 )
