@@ -79,7 +79,6 @@ tracks/0/keys = {
 extents = Vector2( 4, 6 )
 
 [node name="Door" type="Area2D" groups=["NotMoveable", "User"]]
-collision_layer = 0
 script = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
