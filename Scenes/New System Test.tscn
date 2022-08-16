@@ -290,7 +290,6 @@ position = Vector2( 64, 80 )
 position = Vector2( 128, 16 )
 
 [node name="OR-Gate" parent="." instance=ExtResource( 8 )]
-visible = false
 position = Vector2( 128, 64 )
 button = NodePath("../Button")
 button2 = NodePath("../Button2")
