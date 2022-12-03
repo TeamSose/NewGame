@@ -57,7 +57,7 @@ func _unhandled_input(event):
 
 func check_move():
 	check_Rays()
-	#check_explosion()
+	check_explosion()
 	if oneBlock == null:
 		MoveSound.play()
 		move_tween(direction, 10, 5)
@@ -67,7 +67,7 @@ func check_move():
 		oneBlock.move(direction, 0, 3)
 	else:
 		pass
-		#check_explosion()
+		check_explosion()
 	
 func move_tween(dir, tween_effect, speed):
 	tween.interpolate_property(self, "position",
